@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!-- App Bar -->
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/app_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/black"
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+            app:title="Reader Test"
+            app:titleTextColor="@color/white"/>
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <!-- Content Area with Scrollable TextView -->
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <TextView
+            android:id="@+id/text_view_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:textColor="@android:color/black"
+            android:padding="16dp"
+            android:scrollbars="vertical"
+            android:scrollbarStyle="insideInset"
+            android:fadeScrollbars="false"
+            android:overScrollMode="ifContentScrolls"
+            android:scrollbarSize="4dp"
+            android:scrollbarThumbVertical="@android:color/darker_gray"
+            android:textIsSelectable="true"/>
+
+    </ScrollView>
+
+    <!-- Bottom App Bar -->
+    <com.google.android.material.bottomappbar.BottomAppBar
+        android:id="@+id/bottom_app_bar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:layout_gravity="bottom"
+        app:fabAlignmentMode="center"
+        app:fabCradleVerticalOffset="4dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:gravity="center">
+
+            <!-- Add ImageButtons for zoom in and zoom out actions -->
+            <ImageButton
+                android:id="@+id/action_zoom_in"
+                android:layout_width="80dp"
+                android:layout_height="64dp"
+                android:src="@drawable/ic_zoom_in"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:contentDescription="Zoom In" />
+
+            <Space
+                android:layout_width="16dp"
+                android:layout_height="match_parent" />
+
+            <ImageButton
+                android:id="@+id/action_zoom_out"
+                android:layout_width="80dp"
+                android:layout_height="64dp"
+                android:src="@drawable/ic_zoom_out"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:contentDescription="Zoom Out" />
+
+            <Space
+                android:layout_width="16dp"
+                android:layout_height="match_parent" />
+
+
+
+            <ImageButton
+                android:id="@+id/action_change_color"
+                android:layout_width="64dp"
+                android:layout_height="64dp"
+                android:src="@drawable/ic_change_color"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:contentDescription="Change Text Color" />
+
+            <Space
+                android:layout_width="16dp"
+                android:layout_height="match_parent" />
+
+            <!-- Search ImageButton -->
+            <ImageButton
+                android:id="@+id/action_search"
+                android:layout_width="64dp"
+                android:layout_height="64dp"
+                android:src="@drawable/ic_search"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:contentDescription="Search" />
+
+
+
+        </LinearLayout>
+    </com.google.android.material.bottomappbar.BottomAppBar>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
