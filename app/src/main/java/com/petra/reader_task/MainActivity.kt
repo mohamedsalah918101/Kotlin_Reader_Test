@@ -7,6 +7,7 @@ import android.text.SpannableStringBuilder
 import android.text.Spanned
 import android.text.style.ForegroundColorSpan
 import android.view.LayoutInflater
+import android.view.View
 import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.SeekBar
@@ -24,14 +25,21 @@ class MainActivity : AppCompatActivity() {
     private lateinit var btnZoomOut: ImageButton
     private lateinit var btnSearch: ImageButton
     private lateinit var btnChangeColor: ImageButton
+    private lateinit var btnChangeBackgroundColor: ImageButton
     private var currentTextSize: Float = 16f
     private val textSizeStep = 2f // Step size for increasing or decreasing text size
     private lateinit var seekBarRed: SeekBar
     private lateinit var seekBarGreen: SeekBar
     private lateinit var seekBarBlue: SeekBar
+    private lateinit var seekBarRedBackground: SeekBar
+    private lateinit var seekBarGreenBackground: SeekBar
+    private lateinit var seekBarBlueBackground: SeekBar
     private var redThumbPosition = 0
     private var greenThumbPosition = 0
     private var blueThumbPosition = 0
+    private var redThumbPositionBackground = 0
+    private var greenThumbPositionBackground = 0
+    private var blueThumbPositionBackground = 0
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -43,13 +51,17 @@ class MainActivity : AppCompatActivity() {
         btnZoomOut = findViewById(R.id.action_zoom_out)
         btnSearch = findViewById(R.id.action_search)
         btnChangeColor = findViewById(R.id.action_change_color)
+        btnChangeBackgroundColor = findViewById(R.id.action_change_background_color)
 
         loadTextFromAssets("document.txt")
 
         btnZoomIn.setOnClickListener { zoomInText() }
         btnZoomOut.setOnClickListener { zoomOutText() }
         btnSearch.setOnClickListener { showSearchDialog() }
-        btnChangeColor.setOnClickListener { showColorPicker() }
+        btnChangeColor.setOnClickListener { showColorPickerForText() }
+        btnChangeBackgroundColor.setOnClickListener {
+            showColorPickerForBackground()
+        }
 
     }
 
@@ -117,7 +129,7 @@ class MainActivity : AppCompatActivity() {
         textViewContent.text = spannableBuilder
     }
 
-    private fun showColorPicker() {
+    private fun showColorPickerForText() {
         val inflater = getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
         val layout = inflater.inflate(R.layout.popup_color_picker, null)
 
@@ -164,12 +176,70 @@ class MainActivity : AppCompatActivity() {
         dialog.show()
     }
 
+    private fun showColorPickerForBackground() {
+        val inflater = getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+        val layout = inflater.inflate(R.layout.popup_background_color_picker, null)
+
+        seekBarRedBackground = layout.findViewById(R.id.seekBarRedBackground)
+        seekBarGreenBackground = layout.findViewById(R.id.seekBarGreenBackground)
+        seekBarBlueBackground = layout.findViewById(R.id.seekBarBlueBackground)
+
+        // Set thumb positions for each SeekBar
+        seekBarRedBackground.progress = redThumbPositionBackground
+        seekBarGreenBackground.progress = greenThumbPositionBackground
+        seekBarBlueBackground.progress = blueThumbPositionBackground
+
+        // Set up SeekBar listeners
+        val seekBarChangeListener = object : SeekBar.OnSeekBarChangeListener {
+            override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
+                if (seekBar == seekBarRedBackground || seekBar == seekBarGreenBackground || seekBar == seekBarBlueBackground) {
+                    changeBackgroundColor()
+                }
+            }
+
+            override fun onStartTrackingTouch(seekBar: SeekBar?) {
+
+            }
+
+            override fun onStopTrackingTouch(seekBar: SeekBar?) {
+                if (seekBar == seekBarRedBackground) {
+                    redThumbPositionBackground = seekBar.progress
+                } else if (seekBar == seekBarGreenBackground) {
+                    greenThumbPositionBackground = seekBar.progress
+                } else if (seekBar == seekBarBlueBackground) {
+                    blueThumbPositionBackground = seekBar.progress
+                }
+            }
+        }
+
+        seekBarRedBackground.setOnSeekBarChangeListener(seekBarChangeListener)
+        seekBarGreenBackground.setOnSeekBarChangeListener(seekBarChangeListener)
+        seekBarBlueBackground.setOnSeekBarChangeListener(seekBarChangeListener)
+
+        // Create and show the dialog
+        val builder = AlertDialog.Builder(this)
+        builder.setView(layout)
+        val dialog = builder.create()
+        dialog.show()
+    }
+
     private fun updateTextColor() {
         val red = seekBarRed.progress
         val green = seekBarGreen.progress
         val blue = seekBarBlue.progress
         val color = Color.rgb(red, green, blue)
         textViewContent.setTextColor(color)
+    }
+
+    private fun changeBackgroundColor() {
+        // Get RGB values from SeekBars
+        val red = seekBarRedBackground.progress
+        val green = seekBarGreenBackground.progress
+        val blue = seekBarBlueBackground.progress
+
+        // Set background color of the root layout
+        val rootView = findViewById<View>(android.R.id.content)
+        rootView.setBackgroundColor(Color.rgb(red, green, blue))
     }
 
 

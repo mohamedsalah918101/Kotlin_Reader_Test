@@ -62,43 +62,56 @@
             <!-- Add ImageButtons for zoom in and zoom out actions -->
             <ImageButton
                 android:id="@+id/action_zoom_in"
-                android:layout_width="80dp"
+                android:layout_width="64dp"
                 android:layout_height="64dp"
                 android:src="@drawable/ic_zoom_in"
                 android:background="?attr/selectableItemBackgroundBorderless"
                 android:contentDescription="Zoom In" />
 
             <Space
-                android:layout_width="16dp"
+                android:layout_width="5dp"
                 android:layout_height="match_parent" />
 
             <ImageButton
                 android:id="@+id/action_zoom_out"
-                android:layout_width="80dp"
+                android:layout_width="64dp"
                 android:layout_height="64dp"
                 android:src="@drawable/ic_zoom_out"
                 android:background="?attr/selectableItemBackgroundBorderless"
                 android:contentDescription="Zoom Out" />
 
             <Space
-                android:layout_width="16dp"
+                android:layout_width="5dp"
                 android:layout_height="match_parent" />
-
 
 
             <ImageButton
                 android:id="@+id/action_change_color"
                 android:layout_width="64dp"
-                android:layout_height="64dp"
-                android:src="@drawable/ic_change_color"
+                android:layout_height="100dp"
+                android:src="@drawable/ic_abc"
                 android:background="?attr/selectableItemBackgroundBorderless"
                 android:contentDescription="Change Text Color" />
 
             <Space
-                android:layout_width="16dp"
+                android:layout_width="5dp"
+                android:layout_height="match_parent" />
+
+            <ImageButton
+                android:id="@+id/action_change_background_color"
+                android:layout_width="64dp"
+                android:layout_height="64dp"
+                android:src="@drawable/ic_change_color"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:contentDescription="Background" />
+
+
+            <Space
+                android:layout_width="5dp"
                 android:layout_height="match_parent" />
 
             <!-- Search ImageButton -->
+
             <ImageButton
                 android:id="@+id/action_search"
                 android:layout_width="64dp"
